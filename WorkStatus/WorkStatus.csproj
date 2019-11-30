@@ -147,10 +147,7 @@
     <Content Include="App_Themes\Dark\Dark.skin" />
     <Content Include="App_Themes\Light\Light.skin" />
     <None Include="packages.config" />
-    <None Include="Properties\PublishProfiles\CustomProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\CustomProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
-    <None Include="Properties\PublishProfiles\FolderProfile1.pubxml" />
     <None Include="Properties\PublishProfiles\workstatus - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\workstatus - Web Deploy.pubxml" />
     <Content Include="site.webmanifest" />
