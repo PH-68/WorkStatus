@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WorkStatus.v4.Default" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="Default.aspx.cs" Inherits="WorkStatus.Default" %>
 
 <!DOCTYPE html>
 
@@ -149,7 +149,6 @@
             </div>
             <asp:Label ID="Label2" runat="server"></asp:Label>
             <div class="justify-content-center form-group btn-group w-100 text-center">
-                <a class="btn btn-outline-danger form-group" href="../v3/"><%=WorkStatus.Properties.LanguageResource.GoToOlderVersion %></a>
                 <button class="btn btn-outline-success form-group" type="button" data-toggle="collapse" data-target="#typhoonstatus" aria-expanded="false" aria-controls="collapseExample" id="tyinfobutton">
                     <%=WorkStatus.Properties.LanguageResource.Ty_info %></button>
                 <a href="?changetheme=true" class="btn btn-outline-info form-group"><%=WorkStatus.Properties.LanguageResource.SwitchTheTheme %></a>

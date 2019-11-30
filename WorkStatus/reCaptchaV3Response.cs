@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WorkStatus.v4
+namespace WorkStatus
 {
     public class reCaptchaV3Response
     {

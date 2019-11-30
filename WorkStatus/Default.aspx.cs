@@ -4,7 +4,7 @@ using System.Net.Http;
 using System.Text.RegularExpressions;
 using System.Web.UI;
 
-namespace WorkStatus.v4
+namespace WorkStatus
 {
     public partial class Default : System.Web.UI.Page
     {
@@ -36,6 +36,24 @@ namespace WorkStatus.v4
         {
             WebClient webClient = new WebClient();
             webClient.Encoding = System.Text.Encoding.UTF8;
+
+            #region Data update
+
+            if (Convert.ToInt32(Application["V4UnixTimeUpdate"].ToString()) < (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds)
+            {
+                Application["V4UnixTimeUpdate"] = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + 1800;
+                //html的node用大寫
+                string html = webClient.DownloadString("https://www.dgpa.gov.tw/typh/daily/nds.html").Replace("<FONT", "<SPAN").Replace("</FONT>", "</SPAN>");
+                string table = html.Substring(html.IndexOf("<TABLE"), html.IndexOf("</TABLE>") - html.IndexOf("<TABLE") + 8);
+                //xmlDocument.LoadXml(webClient.DownloadString("https://www.dgpa.gov.tw/typh/daily/nds.html"));
+                //HtmlWeb webClient = new HtmlWeb();
+                Application["V4HtmlTable"] = table;
+                html = webClient.DownloadString("https://www.dgpa.gov.tw/typh/daily/ndse.html").Replace("<FONT", "<SPAN").Replace("</FONT>", "</SPAN>");
+                table = html.Substring(html.IndexOf("<TABLE"), html.IndexOf("</TABLE>") - html.IndexOf("<TABLE") + 8);
+                Application["EV4HtmlTable"] = table;
+            }
+
+            #endregion Data update
 
             #region Script region
 
@@ -82,7 +100,7 @@ namespace WorkStatus.v4
             if (Session["L"].ToString() == "C")
             {
                 css.Attributes["href"] = "Improve_Table_zh.css";
-                Label_1.Text = Application["V3HtmlTable"].ToString();
+                Label_1.Text = Application["V4HtmlTable"].ToString();
                 js2.Attributes["src"] = "Improve_zh.js";
                 js2.Attributes["defer"] = "defer";
             }
@@ -135,24 +153,6 @@ namespace WorkStatus.v4
 
             #endregion Script region
 
-            #region Data update
-
-            if (Convert.ToInt32(Application["V4UnixTimeUpdate"].ToString()) < (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds)
-            {
-                Application["V4UnixTimeUpdate"] = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + 1800;
-                //html的node用大寫
-                string html = webClient.DownloadString("https://www.dgpa.gov.tw/typh/daily/nds.html").Replace("<FONT", "<SPAN").Replace("</FONT>", "</SPAN>");
-                string table = html.Substring(html.IndexOf("<TABLE"), html.IndexOf("</TABLE>") - html.IndexOf("<TABLE") + 8);
-                //xmlDocument.LoadXml(webClient.DownloadString("https://www.dgpa.gov.tw/typh/daily/nds.html"));
-                //HtmlWeb webClient = new HtmlWeb();
-                Application["V3HtmlTable"] = table;
-                html = webClient.DownloadString("https://www.dgpa.gov.tw/typh/daily/ndse.html").Replace("<FONT", "<SPAN").Replace("</FONT>", "</SPAN>");
-                table = html.Substring(html.IndexOf("<TABLE"), html.IndexOf("</TABLE>") - html.IndexOf("<TABLE") + 8);
-                Application["EV3HtmlTable"] = table;
-            }
-
-            #endregion Data update
-
             if (Request.QueryString["token"] != null)
             {
                 HttpClient client = new HttpClient();
@@ -188,186 +188,6 @@ namespace WorkStatus.v4
             {
                 Do_Render_CWB_Data();
             }
-
-            #region Disabled
-
-            if (Request.QueryString["lon"] != null & Request.QueryString["lat"] != null & true == false)
-            {
-                float.TryParse(Request.QueryString["lat"], out float lat);
-                float.TryParse(Request.QueryString["lon"], out float lon);
-                string json = "";
-
-                #region Legacy weather api
-
-                if (Convert.ToInt32(Application["V4UnixTime"].ToString()) < (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds)
-                {
-                    Application["V4UnixTime"] = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + 60;
-                    Application["V4JsonData"] = webClient.DownloadString("https://api.openweathermap.org/data/2.5/forecast?lat=" + lat + "&lon=" + lon + "&APPID=44d31a1e35fb9166af8c0af891f9cf10");
-                    json = Application["V4JsonData"].ToString();
-                }
-                else
-                {
-                    json = Application["V4JsonData"].ToString();
-                }
-                WeatherApiClass data = Newtonsoft.Json.JsonConvert.DeserializeObject<WeatherApiClass>(json);
-                string TimeLabel = "";
-                string TempLabel = "";
-                string TempApparentLabel = "";
-                for (int i = 0; i < 8; i++)
-                {
-                    DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-                    dtDateTime = dtDateTime.AddSeconds(data.list[i].dt).AddHours(8);//UTC+8
-                    if (i == 7)
-                    {
-                        TimeLabel += " ' " + dtDateTime.ToString("MM/dd HH:mm") + " ' ";
-                    }
-                    else
-                    {
-                        TimeLabel += " ' " + dtDateTime.ToString("MM/dd HH:mm") + " ' " + ",";
-                    }
-                }
-                for (int i = 0; i < 8; i++)
-                {
-                    if (i == 7)
-                    {
-                        TempLabel += " ' " + (data.list[i].main.temp - (float)273.15) + " ' ";
-                    }
-                    else
-                    {
-                        TempLabel += " ' " + (data.list[i].main.temp - (float)273.15) + " ' " + ",";
-                    }
-                }
-                Label1.Text = @" <script>
-               new Chart(document.getElementById('ChartLegacy'), {
-                   type: 'line',
-                   data: {
-                       labels: [" + TimeLabel + @"],
-                       datasets: [{
-                           data: [" + TempLabel + @"],
-                           label: 'Temp(C)',
-                           borderColor: '#007bff',
-                           fill: false
-                       }]
-                   },
-                   options: {
-                       title: {
-                           display: true,
-                           text: 'Weather(24H)'
-                       },
-maintainAspectRatio: false
-                   }
-               });
-    </script>";
-
-                #endregion Legacy weather api
-
-                #region New weather api
-
-                if (Convert.ToInt32(Application["V4UnixTimeDarkSky"].ToString()) < (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds)
-                {
-                    Application["V4UnixTimeDarkSky"] = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + 3600;
-                    Application["V4DarkSkyJsonData"] = webClient.DownloadString("https://api.darksky.net/forecast/3b8ae875f7a2c36d496bab69b547acee/" + lat + "," + lon + "?units=si");
-                    json = Application["V4DarkSkyJsonData"].ToString();
-                }
-                else
-                {
-                    json = Application["V4DarkSkyJsonData"].ToString();
-                }
-                DarkSkyWeatherApiClass DarkSkyData = Newtonsoft.Json.JsonConvert.DeserializeObject<DarkSkyWeatherApiClass>(json);
-                TimeLabel = "";
-                TempLabel = "";
-                for (int i = 0; i < 25; i++)
-                {
-                    DateTime dtDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
-                    dtDateTime = dtDateTime.AddSeconds(DarkSkyData.hourly.data[i].time).AddHours(8);//UTC+8
-                    if (i == 24)
-                    {
-                        TimeLabel += " ' " + dtDateTime.ToString("MM/dd HH:mm") + " ' ";
-                    }
-                    else
-                    {
-                        TimeLabel += " ' " + dtDateTime.ToString("MM/dd HH:mm") + " ' " + ",";
-                    }
-                }
-                for (int i = 0; i < 25; i++)
-                {
-                    if (i == 24)
-                    {
-                        TempLabel += " ' " + DarkSkyData.hourly.data[i].temperature + " ' ";
-                    }
-                    else
-                    {
-                        TempLabel += " ' " + DarkSkyData.hourly.data[i].temperature + " ' " + ",";
-                    }
-                }
-                for (int i = 0; i < 25; i++)
-                {
-                    //體感溫度
-                    if (i == 24)
-                    {
-                        TempApparentLabel += " ' " + DarkSkyData.hourly.data[i].apparentTemperature + " ' ";
-                    }
-                    else
-                    {
-                        TempApparentLabel += " ' " + DarkSkyData.hourly.data[i].apparentTemperature + " ' " + ",";
-                    }
-                }
-                Label2.Text = @" <script>
-               new Chart(document.getElementById('Chart'), {
-                   type: 'line',
-                   data: {
-                       labels: [" + TimeLabel + @"],
-                       datasets: [{
-                           data: [" + TempLabel + @"],
-                           label: 'Temp(℃)',
-                           borderColor: '#007bff',
-                           fill: false
-                       },
-                       {
-                           data: [" + TempApparentLabel + @"],
-                           label: 'Apparent Temp(℃)',
-                           borderColor: '#17a2b8',
-                           fill: false
-                       }]
-                   },
-                   options: {
-                       title: {
-                           display: true,
-                           text: 'Weather(24H)'
-                       },
-maintainAspectRatio: false
-                   }
-               });
-    </script>";
-
-                #endregion New weather api
-
-                #region Forecast now
-
-                if (Convert.ToInt32(Application["V4UnixTimeWeatherbit"].ToString()) < (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds)
-                {
-                    Application["V4UnixTimeWeatherbit"] = (int)(DateTime.UtcNow.Subtract(new DateTime(1970, 1, 1))).TotalSeconds + 180;
-                    Application["V4WeatherbitJsonData"] = webClient.DownloadString("https://api.weatherbit.io/v2.0/current?lat=" + lat + "&lon=" + lon + "&key=d296db184def40a08e0f90230c548a22");
-                    json = Application["V4WeatherbitJsonData"].ToString();
-                }
-                else
-                {
-                    json = Application["V4WeatherbitJsonData"].ToString();
-                }
-
-                WeatherbitApiClass WeatherbitData = Newtonsoft.Json.JsonConvert.DeserializeObject<WeatherbitApiClass>(json);
-                Label3.Text = WeatherbitData.data[0].temp.ToString() + "℃";
-                Label6.Text = "<h6>Feels like " + WeatherbitData.data[0].app_temp.ToString() + " ℃ </h6>";
-                Label4.Text = DarkSkyData.hourly.summary;
-                //Label5.Text = DarkSkyData.daily.summary;
-
-                #endregion Forecast now
-            }
-            else if (Request.QueryString["d"] == "t")
-            {
-            }
-
-            #endregion Disabled
         }
 
         protected void DropDownList1_SelectedIndexChanged(object sender, EventArgs e)
@@ -430,12 +250,6 @@ maintainAspectRatio: false
                    }
                });
     </script>";
-        }
-
-        public override void VerifyRenderingInServerForm(Control control)
-        {
-            /* Confirms that an HtmlForm control is rendered for the specified ASP.NET
-               server control at run time. */
         }
     }
 }
