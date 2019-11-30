@@ -106,7 +106,7 @@ namespace WorkStatus
             }
             else
             {
-                Label_1.Text = Application["EV3HtmlTable"].ToString();
+                Label_1.Text = Application["EV4HtmlTable"].ToString();
                 css.Attributes["href"] = "Improve_Table_en.css";
                 js2.Attributes["src"] = "Improve_en.js";
                 js2.Attributes["defer"] = "defer";
