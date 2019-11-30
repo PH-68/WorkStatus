@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace WorkStatus.v4
+namespace WorkStatus
 {
 
 

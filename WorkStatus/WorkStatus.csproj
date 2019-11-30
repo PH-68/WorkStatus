@@ -81,67 +81,31 @@
     <Content Include="android-chrome-192x192.png" />
     <Content Include="android-chrome-512x512.png" />
     <Content Include="apple-touch-icon.png" />
-    <Content Include="v3\Default.aspx" />
     <Content Include="favicon-16x16.png" />
     <Content Include="favicon-32x32.png" />
     <Content Include="favicon.ico" />
-    <Content Include="v3\Improve_Table.js" />
-    <Content Include="v3\Improve_Table_Dark.js" />
-    <Content Include="v3\Improve_Table_en.css" />
-    <Content Include="v3\Improve_Table_Light.js" />
-    <Content Include="v3\Improve_Table_Mobile.js" />
-    <Content Include="v3\Improve_table_zh.css" />
     <Content Include="robots.txt" />
-    <Content Include="v1\Default.aspx" />
-    <Content Include="v1\GetStatusUpdate.aspx" />
     <Content Include="Global.asax" />
-    <Content Include="v2\Default.aspx" />
-    <Content Include="v2\UpdateData.aspx" />
-    <Content Include="v2\XMLFile1.xml" />
-    <Content Include="v3\UpdateData.aspx" />
-    <Content Include="v4\cwbdataviewer.aspx" />
-    <Content Include="v4\Default.aspx" />
-    <Content Include="v4\Improve_zh.js" />
-    <Content Include="v4\Improve_en.js" />
-    <Content Include="v4\Improve_Table.js" />
-    <Content Include="v4\Improve_Table_Dark.js" />
-    <Content Include="v4\Improve_Table_en.css" />
-    <Content Include="v4\Improve_Table_Light.js" />
-    <Content Include="v4\Improve_Table_Mobile.js" />
-    <Content Include="v4\Improve_table_zh.css" />
-    <Content Include="v4\UpdateData.aspx" />
+    <Content Include="Default.aspx" />
+    <Content Include="Improve_zh.js" />
+    <Content Include="Improve_en.js" />
+    <Content Include="Improve_Table.js" />
+    <Content Include="Improve_Table_Dark.js" />
+    <Content Include="Improve_Table_en.css" />
+    <Content Include="Improve_Table_Light.js" />
+    <Content Include="Improve_Table_Mobile.js" />
+    <Content Include="Improve_table_zh.css" />
     <Content Include="ViewSwitcher.ascx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="v3\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="v3\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
     <Compile Include="Site.Mobile.Master.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="Site.Mobile.Master.designer.cs">
       <DependentUpon>Site.Mobile.Master</DependentUpon>
-    </Compile>
-    <Compile Include="v1\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="v1\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="v1\GetStatusUpdate.aspx.cs">
-      <DependentUpon>GetStatusUpdate.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="v1\GetStatusUpdate.aspx.designer.cs">
-      <DependentUpon>GetStatusUpdate.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -162,55 +126,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>LanguageResource.zh-TW.resx</DependentUpon>
     </Compile>
-    <Compile Include="v2\Class1.cs" />
-    <Compile Include="v2\Default.aspx.cs">
+    <Compile Include="CWBWeatherApiClass.cs" />
+    <Compile Include="Default.aspx.cs">
       <DependentUpon>Default.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="v2\Default.aspx.designer.cs">
+    <Compile Include="Default.aspx.designer.cs">
       <DependentUpon>Default.aspx</DependentUpon>
     </Compile>
-    <Compile Include="v2\Test.cs" />
-    <Compile Include="v2\UpdateData.aspx.cs">
-      <DependentUpon>UpdateData.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="v2\UpdateData.aspx.designer.cs">
-      <DependentUpon>UpdateData.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="v3\UpdateData.aspx.cs">
-      <DependentUpon>UpdateData.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="v3\UpdateData.aspx.designer.cs">
-      <DependentUpon>UpdateData.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="v4\cwbdataviewer.aspx.cs">
-      <DependentUpon>cwbdataviewer.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="v4\cwbdataviewer.aspx.designer.cs">
-      <DependentUpon>cwbdataviewer.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="v4\CWBWeatherApiClass.cs" />
-    <Compile Include="v4\DarkSkyWeatherApiClass.cs" />
-    <Compile Include="v4\Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="v4\Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="v4\reCaptchaV3Response.cs" />
-    <Compile Include="v4\UpdateData.aspx.cs">
-      <DependentUpon>UpdateData.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="v4\UpdateData.aspx.designer.cs">
-      <DependentUpon>UpdateData.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="v4\WeatherApiClass.cs" />
-    <Compile Include="v4\WeatherbitApiClass.cs" />
+    <Compile Include="reCaptchaV3Response.cs" />
     <Compile Include="ViewSwitcher.ascx.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

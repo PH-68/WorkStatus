@@ -1,4 +1,4 @@
-﻿namespace WorkStatus.v4
+﻿namespace WorkStatus
 {
     public class CWBWeatherApiClass
     {
