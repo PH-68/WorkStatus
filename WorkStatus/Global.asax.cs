@@ -31,7 +31,7 @@ namespace WorkStatus
                 {
                     Session["L"] = "E";
                 }
-                Session["V4Verify"] = "false";
+                Session["V4Verify"] = "true";
             }
         }
 
