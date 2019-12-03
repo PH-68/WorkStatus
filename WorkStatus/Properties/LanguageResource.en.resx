@@ -150,4 +150,10 @@
   <data name="Select_Region" xml:space="preserve">
     <value>Select region</value>
   </data>
+  <data name="link" xml:space="preserve">
+    <value>link</value>
+  </data>
+  <data name="Probability_of_Precipitation" xml:space="preserve">
+    <value>Probability of Precipitation</value>
+  </data>
 </root>

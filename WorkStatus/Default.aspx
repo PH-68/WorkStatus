@@ -17,6 +17,8 @@
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="https://unpkg.com/feather-icons"></script>
+<script src="https://cdn.jsdelivr.net/npm/feather-icons/dist/feather.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.css" />
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js"></script>
     <script src="https://www.google.com/recaptcha/api.js?render=6Lc_o3cUAAAAAEIBgyRh74kK7xQwJfguRoG27rcT"></script>
@@ -32,7 +34,7 @@
             }
             return vars;
         }
-        if (getUrlVars()["v"] == undefined) {
+        if (getUrlVars()["notverify"] != undefined) {
             grecaptcha.ready(function () {
                 grecaptcha.execute('6Lc_o3cUAAAAAEIBgyRh74kK7xQwJfguRoG27rcT', { action: 'homepage' }).then(function (token) {
                     window.location.href = "?token=" + token
@@ -55,7 +57,7 @@
                 }
                 return vars;
             }
-            if (getUrlVars()["lon"] == undefined & getUrlVars()["lat"] == undefined) {
+            if (getUrlVars()["lon"] == undefined & getUrlVars()["lat"] == undefined & true == false) {
                 if (window.navigator.geolocation) {
                     window.navigator.geolocation.getCurrentPosition(success, error,
                         {
@@ -93,7 +95,7 @@
 <body class="bg-light">
     <form id="form1" runat="server">
         <%--<div style="width: 99999999px; height: 99999999px; z-index: 4" class="bg-dark removeMe"></div>--%>
-        <div class="h-100 container">
+        <div class="h-100 container w-100">
             <div class="text-center h2">
                 <%=WorkStatus.Properties.LanguageResource.ws %>
             </div>
@@ -119,11 +121,10 @@
                     <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-openweathermap" role="tab" aria-controls="pills-openweathermap" aria-selected="false">OpenWeatherMap's api(Legacy)</a>
                 </li>
             </ul>
-
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-cwb" role="tabpanel" aria-labelledby="pills-cwb-tab">
                     <div class=" form-group" style="height: 300px; width: 100%" visible="false" runat="server" id="ChartCWBDiv">
-                <%--        <small>**They(Central Weather Bureau) update their data every 6 hours. Yep 6 hours, I tried to report it to let it upate every 3 hours,but nothing happened...😥**</small>--%>
+                        <%--        <small>**They(Central Weather Bureau) update their data every 6 hours. Yep 6 hours, I tried to report it to let it upate every 3 hours,but nothing happened...😥**</small>--%>
                         <canvas id="ChartCWB" runat="server"></canvas>
                     </div>
                     <div class=" justify-content-center form-group w-50 text-center d-flex align-content-center mx-auto">
@@ -137,7 +138,8 @@
                         </h1>
                         <div class="card-text h5">
                             <asp:Label ID="Label5" runat="server" Text="">
-                                <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label></asp:Label>
+                                <asp:Label ID="Label4" runat="server" Text="Label"></asp:Label>
+                            </asp:Label>
                         </div>
                     </div>
                 </div>
@@ -149,9 +151,10 @@
             </div>
             <asp:Label ID="Label2" runat="server"></asp:Label>
             <div class="justify-content-center form-group btn-group w-100 text-center">
-                <button class="btn btn-outline-success form-group" type="button" data-toggle="collapse" data-target="#typhoonstatus" aria-expanded="false" aria-controls="collapseExample" id="tyinfobutton">
+                <button class="btn btn-outline-warning form-group" type="button" data-toggle="collapse" data-target="#typhoonstatus" aria-expanded="false" aria-controls="collapseExample" id="tyinfobutton">
                     <%=WorkStatus.Properties.LanguageResource.Ty_info %></button>
                 <a href="?changetheme=true" class="btn btn-outline-info form-group"><%=WorkStatus.Properties.LanguageResource.SwitchTheTheme %></a>
+                <a href="https://github.com/Poyi-Hong/Work-Status" class="btn btn-outline-success form-group" target="_blank">Github <%=WorkStatus.Properties.LanguageResource.link %></a>
             </div>
             <div class="collapse" id="typhoonstatus">
                 <div class="card" style="border-color: #ffc107">
@@ -159,13 +162,13 @@
                         <div id="typhoonstatuscard" class="text-light">
                         </div>
                         <div class="text-center">
-                            <img src="https://fonts.gstatic.com/s/i/materialiconsoutlined/report_problem/v1/24px.svg" id="tyimg" />
+                            <img src="https://fonts.gstatic.com/s/i/materialiconsoutlined/report_problem/v1/24px.svg" id="tyimg" class="img-fluid" />
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <footer class="small text-center form-group"><small class="text-muted">Build : δ-0.1.1 Canary</small></footer>
+        <footer class="small text-center form-group"><small class="text-muted">Build : δ-0.2.0 Canary</small></footer>
         <asp:Label ID="Label1" runat="server"></asp:Label>
         <script>
             $(".grecaptcha-badge").remove()</script>

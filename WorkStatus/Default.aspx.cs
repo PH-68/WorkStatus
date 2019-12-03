@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Http;
 using System.Text.RegularExpressions;
@@ -177,16 +178,20 @@ namespace WorkStatus
                 {
                     //Do_Render_CWB_Data();
                     Session["V4Verify"] = "true";
-                    Response.Redirect("?v=t");
-                }
-                else
-                {
                     Response.Redirect("./");
+                }
+                else if (Session["V4Verify"].ToString() != "true")
+                {
+                    Response.Redirect("./Default?notverify=true");
                 }
             }
             else if (Session["V4Verify"].ToString() == "true")
             {
                 Do_Render_CWB_Data();
+            }
+            else if (Session["V4Verify"].ToString() != "true" & Request.QueryString["notverify"] == null)
+            {
+                Response.Redirect("./?notverify=true");
             }
         }
 
@@ -204,23 +209,49 @@ namespace WorkStatus
             string TimeLabel = "";
             string TempLabel = "";
             string TempApparentLabel = "";
+            string RainLabel = "";
+            List<int> list = new List<int>();
+            for (int i = 0; i < 4; i++)
+            {
+                //0:WX,AT ,T ,PoP6H
+                int int1 = int.Parse(data.records.locations[0].location[index].weatherElement[3].time[i].elementValue[0].value);
+                int int2 = int.Parse(data.records.locations[0].location[index].weatherElement[3].time[i + 1].elementValue[0].value);
+                if (i == 0)
+                {
+                    list.Add(int1);
+                    list.Add((int1 + int2) / 2);
+                    list.Add(int2);
+                    //RainLabel += int1 +","+ (int1 + int2) / 2+"," + int2;
+                }
+                else
+                {
+                    list.Add((int1 + int2) / 2);
+                    list.Add(int2);
+                    //RainLabel += int1 + "," + (int1 + int2) / 2 + "," + int2;
+                }
+            }
             for (int i = 0; i < 9; i++)
             {
                 //0:WX,AT ,T ,PoP6H
                 string time = data.records.locations[0].location[index].weatherElement[2].time[i].dataTime.ToString();
                 if (i == 8)
                 {
-                    TimeLabel += " ' " + time.Split(' ')[0].Split('-')[1] + "/" + time.Split(' ')[0].Split('-')[2] + " " + time.Split(' ')[1].Split(':')[0] + ":" + time.Split(' ')[1].Split(':')[1] + " ' ";
+                    TimeLabel += " ' " + time.Split(' ')[0].Split('-')[1] + "/" + time.Split(' ')[0].Split('-')[2] + " " + time.Split(' ')[1].Split(':')[0] + ":" + time.Split(' ')[1].Split(':')[1] + " | 💧 " +list[i]+ "%' ";
                     TempApparentLabel += " ' " + data.records.locations[0].location[index].weatherElement[1].time[i].elementValue[0].value + " ' ";
                     TempLabel += " ' " + data.records.locations[0].location[index].weatherElement[2].time[i].elementValue[0].value + " ' ";
                 }
                 else
                 {
-                    TimeLabel += " ' " + time.Split(' ')[0].Split('-')[1] + "/" + time.Split(' ')[0].Split('-')[2] + " " + time.Split(' ')[1].Split(':')[0] + ":" + time.Split(' ')[1].Split(':')[1] + " ' " + ",";
+                    TimeLabel += " ' " + time.Split(' ')[0].Split('-')[1] + "/" + time.Split(' ')[0].Split('-')[2] + " " + time.Split(' ')[1].Split(':')[0] + ":" + time.Split(' ')[1].Split(':')[1] + " | 💧 " +list[i]+ "%' " + ",";
                     TempApparentLabel += " ' " + data.records.locations[0].location[index].weatherElement[1].time[i].elementValue[0].value + " ' " + ",";
                     TempLabel += " ' " + data.records.locations[0].location[index].weatherElement[2].time[i].elementValue[0].value + " ' " + ",";
                 }
             }
+            foreach (var item in list)
+            {
+                RainLabel += "'" + item + "',";
+            }
+            RainLabel = RainLabel.Remove(RainLabel.Length - 1);
             //體感溫度
             ChartCWBDiv.Visible = true;
             Label2.Text = @" <script>
@@ -228,7 +259,8 @@ namespace WorkStatus
                    type: 'line',
                    data: {
                        labels: [" + TimeLabel + @"],
-                       datasets: [{
+                       datasets: [
+                        {
                            data: [" + TempLabel + @"],
                            label: 'Temp(℃)',
                            borderColor: '#007bff',
@@ -246,7 +278,7 @@ namespace WorkStatus
                            display: true,
                            text: 'Weather(24H)'
                        },
-maintainAspectRatio: false
+                             maintainAspectRatio: false
                    }
                });
     </script>";
