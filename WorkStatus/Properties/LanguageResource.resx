@@ -101,39 +101,39 @@
     <value>City/Region</value>
   </data>
   <data name="Nothing" xml:space="preserve">
-    <value></value>
+    <value>Nothing</value>
   </data>
   <data name="status" xml:space="preserve">
     <value>Status</value>
   </data>
   <data name="CL" xml:space="preserve">
-    <value></value>
+    <value>Change Language</value>
   </data>
   <data name="ws" xml:space="preserve">
-    <value></value>
+    <value>Work Status</value>
   </data>
   <data name="nocancel" xml:space="preserve">
-    <value></value>
+    <value>Work and Classes as Usual Today.</value>
   </data>
   <data name="WT" xml:space="preserve">
-    <value></value>
+    <value>Whole Taiwan,R.O.C</value>
   </data>
   <data name="GoToOlderVersion" xml:space="preserve">
-    <value></value>
+    <value>Go to older version</value>
   </data>
   <data name="SwitchTheTheme" xml:space="preserve">
-    <value></value>
+    <value>Switch the theme</value>
   </data>
   <data name="Ty_info" xml:space="preserve">
-    <value></value>
+    <value>Typhoon Info</value>
   </data>
   <data name="Select_Region" xml:space="preserve">
-    <value></value>
+    <value>Select region</value>
   </data>
   <data name="link" xml:space="preserve">
-    <value></value>
+    <value>link</value>
   </data>
   <data name="Probability_of_Precipitation" xml:space="preserve">
-    <value></value>
+    <value>Probability of Precipitation</value>
   </data>
 </root>

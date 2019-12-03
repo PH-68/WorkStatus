@@ -70,7 +70,7 @@ namespace WorkStatus.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Change Language.
         /// </summary>
         public static string CL {
             get {
@@ -79,7 +79,7 @@ namespace WorkStatus.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Go to older version.
         /// </summary>
         public static string GoToOlderVersion {
             get {
@@ -88,7 +88,7 @@ namespace WorkStatus.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to link.
         /// </summary>
         public static string link {
             get {
@@ -97,7 +97,7 @@ namespace WorkStatus.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Work and Classes as Usual Today..
         /// </summary>
         public static string nocancel {
             get {
@@ -106,7 +106,7 @@ namespace WorkStatus.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Nothing.
         /// </summary>
         public static string Nothing {
             get {
@@ -115,7 +115,7 @@ namespace WorkStatus.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Probability of Precipitation.
         /// </summary>
         public static string Probability_of_Precipitation {
             get {
@@ -124,7 +124,7 @@ namespace WorkStatus.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Select region.
         /// </summary>
         public static string Select_Region {
             get {
@@ -142,7 +142,7 @@ namespace WorkStatus.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Switch the theme.
         /// </summary>
         public static string SwitchTheTheme {
             get {
@@ -151,7 +151,7 @@ namespace WorkStatus.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Typhoon Info.
         /// </summary>
         public static string Ty_info {
             get {
@@ -160,7 +160,7 @@ namespace WorkStatus.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Work Status.
         /// </summary>
         public static string ws {
             get {
@@ -169,7 +169,7 @@ namespace WorkStatus.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to .
+        ///   Looks up a localized string similar to Whole Taiwan,R.O.C.
         /// </summary>
         public static string WT {
             get {
