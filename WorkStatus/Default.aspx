@@ -138,7 +138,7 @@
                 </div>
             </div>
         </div>
-        <footer class="small text-center form-group"><small class="text-muted">Build : δ-0.2.0 Canary</small></footer>
+        <footer class="small text-center form-group"><small class="text-muted">Build : δ-0.2.1 Canary</small></footer>
         <asp:Label ID="Label1" runat="server"></asp:Label>
     </form>
 </body>
