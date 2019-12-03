@@ -90,6 +90,15 @@ namespace WorkStatus.Properties {
         /// <summary>
         ///   Looks up a localized string similar to .
         /// </summary>
+        public static string link {
+            get {
+                return ResourceManager.GetString("link", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
         public static string nocancel {
             get {
                 return ResourceManager.GetString("nocancel", resourceCulture);
@@ -102,6 +111,15 @@ namespace WorkStatus.Properties {
         public static string Nothing {
             get {
                 return ResourceManager.GetString("Nothing", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to .
+        /// </summary>
+        public static string Probability_of_Precipitation {
+            get {
+                return ResourceManager.GetString("Probability_of_Precipitation", resourceCulture);
             }
         }
         
