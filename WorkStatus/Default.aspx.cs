@@ -24,7 +24,7 @@ namespace WorkStatus
 
                 Session["V4CWBJson"] = json;
                 CWBWeatherApiClass data = Newtonsoft.Json.JsonConvert.DeserializeObject<CWBWeatherApiClass>(json);
-                DropDownList1.Items.Add(new System.Web.UI.WebControls.ListItem("===" + Properties.LanguageResource.Select_Region + "===", "-1", true));
+                DropDownList1.Items.Add(new System.Web.UI.WebControls.ListItem(Properties.LanguageResource.Select_Region, "-1", true));
                 for (int i = 0; i < data.records.locations[0].location.Length; i++)
                 {
                     System.Web.UI.WebControls.ListItem listItem = new System.Web.UI.WebControls.ListItem(data.records.locations[0].location[i].locationName, i.ToString());
@@ -236,13 +236,13 @@ namespace WorkStatus
                 string time = data.records.locations[0].location[index].weatherElement[2].time[i].dataTime.ToString();
                 if (i == 8)
                 {
-                    TimeLabel += " ' " + time.Split(' ')[0].Split('-')[1] + "/" + time.Split(' ')[0].Split('-')[2] + " " + time.Split(' ')[1].Split(':')[0] + ":" + time.Split(' ')[1].Split(':')[1] + " | 💧 " +list[i]+ "%' ";
+                    TimeLabel += " ' " + time.Split(' ')[0].Split('-')[1] + "/" + time.Split(' ')[0].Split('-')[2] + " " + time.Split(' ')[1].Split(':')[0] + ":" + time.Split(' ')[1].Split(':')[1] + " | 💧 " + list[i] + "%' ";
                     TempApparentLabel += " ' " + data.records.locations[0].location[index].weatherElement[1].time[i].elementValue[0].value + " ' ";
                     TempLabel += " ' " + data.records.locations[0].location[index].weatherElement[2].time[i].elementValue[0].value + " ' ";
                 }
                 else
                 {
-                    TimeLabel += " ' " + time.Split(' ')[0].Split('-')[1] + "/" + time.Split(' ')[0].Split('-')[2] + " " + time.Split(' ')[1].Split(':')[0] + ":" + time.Split(' ')[1].Split(':')[1] + " | 💧 " +list[i]+ "%' " + ",";
+                    TimeLabel += " ' " + time.Split(' ')[0].Split('-')[1] + "/" + time.Split(' ')[0].Split('-')[2] + " " + time.Split(' ')[1].Split(':')[0] + ":" + time.Split(' ')[1].Split(':')[1] + " | 💧 " + list[i] + "%' " + ",";
                     TempApparentLabel += " ' " + data.records.locations[0].location[index].weatherElement[1].time[i].elementValue[0].value + " ' " + ",";
                     TempLabel += " ' " + data.records.locations[0].location[index].weatherElement[2].time[i].elementValue[0].value + " ' " + ",";
                 }
