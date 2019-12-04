@@ -246,13 +246,15 @@ namespace WorkStatus
                 string time = data.records.locations[0].location[index].weatherElement[2].time[i].dataTime.ToString();
                 if (i == 8)
                 {
-                    TimeLabel += " ' " + time.Split(' ')[0].Split('-')[1] + "/" + time.Split(' ')[0].Split('-')[2] + " " + time.Split(' ')[1].Split(':')[0] + ":" + time.Split(' ')[1].Split(':')[1] + " | 💧 " + list[i] + "%' ";
+                    //TimeLabel += " ' " + time.Split(' ')[0].Split('-')[1] + "/" + time.Split(' ')[0].Split('-')[2] + " " + time.Split(' ')[1].Split(':')[0] + ":" + time.Split(' ')[1].Split(':')[1] + " | 💧 " + list[i] + "%' ";
+                    TimeLabel += " '" + time.Split(' ')[1].Split(':')[0] + " |💧" + list[i] + "%' ";
                     TempApparentLabel += " ' " + data.records.locations[0].location[index].weatherElement[1].time[i].elementValue[0].value + " ' ";
                     TempLabel += " ' " + data.records.locations[0].location[index].weatherElement[2].time[i].elementValue[0].value + " ' ";
                 }
                 else
                 {
-                    TimeLabel += " ' " + time.Split(' ')[0].Split('-')[1] + "/" + time.Split(' ')[0].Split('-')[2] + " " + time.Split(' ')[1].Split(':')[0] + ":" + time.Split(' ')[1].Split(':')[1] + " | 💧 " + list[i] + "%' " + ",";
+                    //TimeLabel += " ' " + time.Split(' ')[0].Split('-')[1] + "/" + time.Split(' ')[0].Split('-')[2] + " " + time.Split(' ')[1].Split(':')[0] + ":" + time.Split(' ')[1].Split(':')[1] + " | 💧 " + list[i] + "%' " + ",";
+                    TimeLabel += " '" + time.Split(' ')[1].Split(':')[0] + " |💧" + list[i] + "%' " + ",";
                     TempApparentLabel += " ' " + data.records.locations[0].location[index].weatherElement[1].time[i].elementValue[0].value + " ' " + ",";
                     TempLabel += " ' " + data.records.locations[0].location[index].weatherElement[2].time[i].elementValue[0].value + " ' " + ",";
                 }
@@ -288,7 +290,8 @@ namespace WorkStatus
                            display: true,
                            text: 'Weather(24H)'
                        },
-                             maintainAspectRatio: false
+                             maintainAspectRatio: false,
+                              responsive: true
                    }
                });
     </script>";
