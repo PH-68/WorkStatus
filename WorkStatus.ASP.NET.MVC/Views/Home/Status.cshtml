@@ -1,0 +1,66 @@
+﻿@{
+    ViewBag.Title = "Status now";
+    Dictionary<string, string> dictionary = ViewBag.Dictionary;
+    List<bool> IsClosuresWorking = ViewBag.IsClosuresWorking;
+    string TempClass = "";
+}
+<h2 class="text-center">@ViewBag.Title</h2>
+@for (int i = 0; i < dictionary.Count; i++)
+{
+    if (IsClosuresWorking[i])
+    {
+        TempClass = "border border-warning";
+    }
+    else
+    {
+        TempClass = "border border-success";
+    }
+    <a class="card @TempClass form-group text-dark" href=" @i " style="cursor: inherit;">
+        <div class="card-body">
+            <div class="h5 card-title">@dictionary.Keys.ElementAt(i)</div>
+            <div class="h6 card-text">@dictionary[dictionary.Keys.ElementAt(i)]</div>
+        </div>
+    </a>
+}
+@Html.DropDownList("Citys", WorkStatus.ASP.NET.MVC.Models.WorkStatusDataModel.Citys, new { onChange = "onChange(this)" })
+<script>
+    function onChange(elem) {
+        //document.getElementById('mySelect1').disabled = !elem.selectedIndex;
+        window.location.href = "/Home/Status/" + elem.value
+    }</script>
+<style>
+    a:hover {
+        text-decoration: none;
+    }
+</style>
+@*<canvas id="ChartCWB"></canvas>
+<script>
+               new Chart(document.getElementById('ChartCWB'), {
+                   type: 'line',
+                   data: {
+                       labels: [" + TimeLabel + "],
+                       datasets: [
+                        {
+                           data: [" + TempLabel + "],
+                           label: 'Temp(℃)',
+                           borderColor: '#007bff',
+                           fill: false
+                       },
+                       {
+                           data: [" + TempApparentLabel + "],
+                           label: 'Apparent Temp(℃)',
+                           borderColor: '#17a2b8',
+                           fill: false
+                       }]
+                   },
+                   options: {
+                       title: {
+                           display: true,
+                           text: 'Weather(24H)'
+                       },
+                             maintainAspectRatio: false,
+                              responsive: true
+                   }
+               });
+</script>*@
+<p>Use this area to provide additional information.</p>
