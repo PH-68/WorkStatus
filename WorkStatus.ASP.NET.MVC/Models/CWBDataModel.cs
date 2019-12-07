@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
-namespace WorkStatus.ASP.NET.MVC.Models
+﻿namespace WorkStatus.ASP.NET.MVC.Models
 {
     public class CWBDataModel
     {
-
-            public string success { get; set; }
-            public Result result { get; set; }
-            public Records records { get; set; }
+        public string success { get; set; }
+        public Result result { get; set; }
+        public Records records { get; set; }
 
         public class Result
         {
@@ -66,6 +60,5 @@ namespace WorkStatus.ASP.NET.MVC.Models
             public string value { get; set; }
             public string measures { get; set; }
         }
-
     }
 }

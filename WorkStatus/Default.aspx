@@ -111,14 +111,14 @@
             </ul>
             <div class="tab-content" id="pills-tabContent">
                 <div class="tab-pane fade show active" id="pills-cwb" role="tabpanel" aria-labelledby="pills-cwb-tab">
-                    <div class=" form-group" style="position: relative; height:350px; width:100%" visible="false" runat="server" id="ChartCWBDiv">
+                    <div class=" form-group" style="position: relative; height: 350px; width: 100%" visible="false" runat="server" id="ChartCWBDiv">
                         <canvas id="ChartCWB" runat="server"></canvas>
                     </div>
                     <div class=" justify-content-center form-group w-50 text-center d-flex align-content-center mx-auto">
                         <asp:DropDownList ID="DropDownList1" runat="server" CssClass="custom-select" AutoPostBack="True" OnSelectedIndexChanged="DropDownList1_SelectedIndexChanged"></asp:DropDownList>
                     </div>
                 </div>
-                </div>
+            </div>
             <asp:Label ID="Label2" runat="server"></asp:Label>
             <div class="justify-content-center form-group btn-group w-100 text-center">
                 <button class="btn btn-outline-warning form-group" type="button" data-toggle="collapse" data-target="#typhoonstatus" aria-expanded="false" aria-controls="collapseExample" id="tyinfobutton">

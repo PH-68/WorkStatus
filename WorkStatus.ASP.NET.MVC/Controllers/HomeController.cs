@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using System.Net;
+using System.Web.Mvc;
 
 namespace WorkStatus.ASP.NET.MVC.Controllers
 {
@@ -23,13 +24,28 @@ namespace WorkStatus.ASP.NET.MVC.Controllers
             }
             ViewBag.Dictionary = workStatusData.StatusData;
             ViewBag.IsClosuresWorking = workStatusData.IsClosuresWorking;
+            ViewBag.Citys = workStatusData.Citys;
             return View();
-            }
+        }
 
         public ActionResult Contact()
         {
             ViewBag.Message = "Your contact page.";
 
+            return View();
+        }
+
+        public ActionResult Weather()
+        {
+            ViewBag.Message = "Your contact page.";
+            WebClient webClient = new WebClient { Encoding = System.Text.Encoding.UTF8 };
+
+            Models.CWBDataModel cWBDataModel = Newtonsoft.Json.JsonConvert.DeserializeObject<Models.CWBDataModel>(webClient.DownloadString(
+                "https://opendata.cwb.gov.tw/api/v1/rest/datastore/F-D0047-089?Authorization=rdec-key-123-45678-011121314&elementName=Wx,T,AT,PoP6h"));
+            if (Url.RequestContext.RouteData.Values["id"] != null)
+            {
+                ViewBag.Title = cWBDataModel.records.locations[0].location[0].locationName;
+            }
             return View();
         }
     }

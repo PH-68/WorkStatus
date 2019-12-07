@@ -2,6 +2,7 @@
     ViewBag.Title = "Status now";
     Dictionary<string, string> dictionary = ViewBag.Dictionary;
     List<bool> IsClosuresWorking = ViewBag.IsClosuresWorking;
+    List<SelectListItem> Citys = ViewBag.Citys;
     string TempClass = "";
 }
 <h2 class="text-center">@ViewBag.Title</h2>
@@ -15,14 +16,36 @@
     {
         TempClass = "border border-success";
     }
-    <a class="card @TempClass form-group text-dark" href=" @i " style="cursor: inherit;">
+    <a class="card @TempClass form-group text-dark" href="/Home/Status/@i " style="cursor: inherit;">
         <div class="card-body">
             <div class="h5 card-title">@dictionary.Keys.ElementAt(i)</div>
             <div class="h6 card-text">@dictionary[dictionary.Keys.ElementAt(i)]</div>
         </div>
     </a>
 }
-@Html.DropDownList("Citys", WorkStatus.ASP.NET.MVC.Models.WorkStatusDataModel.Citys, new { onChange = "onChange(this)" })
+<select id="Citys" name="Citys" onchange="onChange(this)">
+    <option value="0">Keelung City</option>
+    <option value="1">Taipei City</option>
+    <option value="2">New Taipei City</option>
+    <option value="3">Taoyuan City</option>
+    <option value="4">Hsinchu City</option>
+    <option value="5">Hsinchu County</option>
+    <option value="6">Miaoli County</option>
+    <option value="7">Taichung  City</option>
+    <option value="8">Changhua County</option>
+    <option value="9">Yunlin County</option>
+    <option value="10">Nantou county</option>
+    <option value="11">Chiayi City</option>
+    <option value="12">Chiayi County</option>
+    <option value="13">Tainan City</option>
+    <option value="14">Kaohsiung City</option>
+    <option value="15">Pingtung County</option>
+    <option value="16">Yilan County</option>
+    <option value="17">Hualien County</option>
+    <option value="18">Taitung County</option>
+    <option value="19">Penghu County</option>
+    <option value="20">Lienchiang County</option>
+</select>
 <script>
     function onChange(elem) {
         //document.getElementById('mySelect1').disabled = !elem.selectedIndex;
@@ -34,33 +57,33 @@
     }
 </style>
 @*<canvas id="ChartCWB"></canvas>
-<script>
-               new Chart(document.getElementById('ChartCWB'), {
-                   type: 'line',
-                   data: {
-                       labels: [" + TimeLabel + "],
-                       datasets: [
-                        {
-                           data: [" + TempLabel + "],
-                           label: 'Temp(℃)',
-                           borderColor: '#007bff',
-                           fill: false
+    <script>
+                   new Chart(document.getElementById('ChartCWB'), {
+                       type: 'line',
+                       data: {
+                           labels: [" + TimeLabel + "],
+                           datasets: [
+                            {
+                               data: [" + TempLabel + "],
+                               label: 'Temp(℃)',
+                               borderColor: '#007bff',
+                               fill: false
+                           },
+                           {
+                               data: [" + TempApparentLabel + "],
+                               label: 'Apparent Temp(℃)',
+                               borderColor: '#17a2b8',
+                               fill: false
+                           }]
                        },
-                       {
-                           data: [" + TempApparentLabel + "],
-                           label: 'Apparent Temp(℃)',
-                           borderColor: '#17a2b8',
-                           fill: false
-                       }]
-                   },
-                   options: {
-                       title: {
-                           display: true,
-                           text: 'Weather(24H)'
-                       },
-                             maintainAspectRatio: false,
-                              responsive: true
-                   }
-               });
-</script>*@
+                       options: {
+                           title: {
+                               display: true,
+                               text: 'Weather(24H)'
+                           },
+                                 maintainAspectRatio: false,
+                                  responsive: true
+                       }
+                   });
+    </script>*@
 <p>Use this area to provide additional information.</p>
