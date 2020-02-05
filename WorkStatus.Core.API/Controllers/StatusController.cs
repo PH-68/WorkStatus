@@ -73,7 +73,7 @@ namespace WorkStatus.Core.API.Controllers
         /// <returns></returns>
         [ResponseCache(Duration = 1800, Location = ResponseCacheLocation.Any)]
         [HttpGet]
-        public async System.Threading.Tasks.Task<IEnumerable<StatusModel>> GetAsync()
+        public async System.Threading.Tasks.Task<StatusModel> GetAsync()
         {
             if (DateTimeOffset.UtcNow.ToUnixTimeSeconds() - LastCheckedTime > 1800)
             {
@@ -95,14 +95,15 @@ namespace WorkStatus.Core.API.Controllers
                 //都正常
                 for (int i = 0; i < CitiesEn.Length; i++)
                 {
-                    Dictionary<string, string> Notes = new Dictionary<string, string>();
+                    //Dictionary<string, string> Notes = null;
+                    List<string> Notes = new List<string>();
                     //20200202 special
-                    Notes.Add(CitiesCh[i] + "學生", "寒假延長至2/25");
+                    Notes.Add(CitiesCh[i] + "學生 - " + "寒假延長至2/25");
                     CityStatus cityStatus = new CityStatus
                     {
                         CityNameCh = CitiesCh[i],
                         CityNameEn = CitiesEn[i],
-                        IsCanceled = Convert.ToInt16(false),
+                        IsCanceled = false,
                         Notes = Notes
                     };
                     citiesStatuses.Add(cityStatus);
@@ -112,66 +113,108 @@ namespace WorkStatus.Core.API.Controllers
             {
                 //True == 1 false ==0 else ==2
                 //#000080 => 有颱風正常 ; #FF0000=>有颱風 放假 ; #000000=>沒颱風 正常
-                Dictionary<string, string> Notes = new Dictionary<string, string>();
                 for (int i = 0; i < doc.DocumentNode.SelectNodes("//*[@class='Table_Body']/tr").Count - 1; i++)
                 {
-                    Notes = new Dictionary<string, string>();
-                    if ((doc.DocumentNode.SelectSingleNode("//*[@class='Table_Body']/tr[" + (i + 1) + "]").InnerHtml.IndexOf("#FF0000") != -1) &&
-                        (doc.DocumentNode.SelectSingleNode("//*[@class='Table_Body']/tr[" + (i + 1) + "]").InnerHtml.IndexOf("#000080") != -1))
+                    List<string> Notes = null;
+
+                    #region MyRegion
+                    //if ((doc.DocumentNode.SelectSingleNode("//*[@class='Table_Body']/tr[" + (i + 1) + "]").InnerHtml.IndexOf("#FF0000") != -1) &&
+                    //                        (doc.DocumentNode.SelectSingleNode("//*[@class='Table_Body']/tr[" + (i + 1) + "]").InnerHtml.IndexOf("#000080") != -1))
+                    //{
+                    //    //這個縣市有放假 但是
+                    //    if (doc.DocumentNode.SelectNodes("//*[@class='Table_Body']/tr[" + (i + 1) + "]/td[2]/font").Count != 1)
+                    //    {
+                    //        for (int v = 0; v < doc.DocumentNode.SelectNodes("//*[@class='Table_Body']/tr[" + (i + 1) + "]/td[2]/font").Count - 1; v++)
+                    //        {
+                    //            string t = doc.DocumentNode.SelectNodes("//*[@class='Table_Body']/tr[" + (i + 1) + "]/td[2]/font")[v + 1].InnerText;
+                    //            Notes.Add(t.Split(':')[0], t.Split(':')[1]);
+                    //        }
+                    //    }
+                    //    CityStatus cityStatus = new CityStatus
+                    //    {
+                    //        CityNameCh = CitiesCh[i],
+                    //        CityNameEn = CitiesEn[i],
+                    //        IsCanceled = Convert.ToInt16(2),
+                    //        Notes = Notes
+                    //    };
+                    //    citiesStatuses.Add(cityStatus);
+                    //}
+                    //else if (doc.DocumentNode.SelectSingleNode("//*[@class='Table_Body']/tr[" + (i + 1) + "]").InnerHtml.IndexOf("#000080") != -1)
+                    //{
+                    //    //有其他縣市停班 但這個沒有
+                    //    CityStatus cityStatus = new CityStatus
+                    //    {
+                    //        CityNameCh = CitiesCh[i],
+                    //        CityNameEn = CitiesEn[i],
+                    //        IsCanceled = Convert.ToInt16(false),
+                    //        Notes = Notes
+                    //    };
+                    //    citiesStatuses.Add(cityStatus);
+                    //}
+                    //else
+                    //{
+                    //    //這個縣市有放假 沒有但是
+                    //    CityStatus cityStatus = new CityStatus
+                    //    {
+                    //        CityNameCh = CitiesCh[i],
+                    //        CityNameEn = CitiesEn[i],
+                    //        IsCanceled = Convert.ToInt16(true),
+                    //        Notes = Notes
+                    //    };
+                    //    citiesStatuses.Add(cityStatus);
+                    //}
+                    #endregion
+                    if (doc.DocumentNode.SelectSingleNode("//*[@class='Table_Body']/tr[" + (i + 1) + "]/td[2]/font[1]").OuterHtml.IndexOf("#FF0000") != -1) //放假
                     {
-                        //這個縣市有放假 但是
-                        if (doc.DocumentNode.SelectNodes("//*[@class='Table_Body']/tr[" + (i + 1) + "]/td[2]/font").Count != 1)
+                        if (doc.DocumentNode.SelectNodes("//*[@class='Table_Body']/tr[" + (i + 1) + "]/td[2]/font").Count >= 1)
                         {
                             for (int v = 0; v < doc.DocumentNode.SelectNodes("//*[@class='Table_Body']/tr[" + (i + 1) + "]/td[2]/font").Count - 1; v++)
                             {
+                                Notes = new List<string>();
                                 string t = doc.DocumentNode.SelectNodes("//*[@class='Table_Body']/tr[" + (i + 1) + "]/td[2]/font")[v + 1].InnerText;
-                                Notes.Add(t.Split(':')[0], t.Split(':')[1]);
+                                Notes.Add(t.Split(':')[0]+" - "+ t.Split(':')[1]);
                             }
                         }
                         CityStatus cityStatus = new CityStatus
                         {
                             CityNameCh = CitiesCh[i],
                             CityNameEn = CitiesEn[i],
-                            IsCanceled = Convert.ToInt16(2),
+                            IsCanceled = true,
                             Notes = Notes
                         };
                         citiesStatuses.Add(cityStatus);
                     }
-                    else if (doc.DocumentNode.SelectSingleNode("//*[@class='Table_Body']/tr[" + (i + 1) + "]").InnerHtml.IndexOf("#000080") != -1)
+                    else if (doc.DocumentNode.SelectSingleNode("//*[@id='Table']/tbody[2]/tr[" + (i + 1) + "]/td[2]/font[1]").OuterHtml.IndexOf("#000080") != -1)// 沒放
                     {
-                        //有其他縣市停班 但這個沒有
+                        if (doc.DocumentNode.SelectNodes("//*[@class='Table_Body']/tr[" + (i + 1) + "]/td[2]/font").Count! >= 1)
+                        {
+                            for (int v = 0; v < doc.DocumentNode.SelectNodes("//*[@class='Table_Body']/tr[" + (i + 1) + "]/td[2]/font").Count - 1; v++)
+                            {
+                                Notes = new List<string>();
+                                string t = doc.DocumentNode.SelectNodes("//*[@class='Table_Body']/tr[" + (i + 1) + "]/td[2]/font")[v + 1].InnerText;
+                                Notes.Add(t.Split(':')[0] + " - " + t.Split(':')[1]);
+                            }
+                        }
                         CityStatus cityStatus = new CityStatus
                         {
                             CityNameCh = CitiesCh[i],
                             CityNameEn = CitiesEn[i],
-                            IsCanceled = Convert.ToInt16(false),
-                            Notes = Notes
-                        };
-                        citiesStatuses.Add(cityStatus);
-                    }
-                    else
-                    {
-                        //這個縣市有放假 沒有但是
-                        CityStatus cityStatus = new CityStatus
-                        {
-                            CityNameCh = CitiesCh[i],
-                            CityNameEn = CitiesEn[i],
-                            IsCanceled = Convert.ToInt16(true),
+                            IsCanceled = false,
                             Notes = Notes
                         };
                         citiesStatuses.Add(cityStatus);
                     }
                 }
             }
-            return Enumerable.Range(1, 1).Select(index => new StatusModel
+            StatusModel statusModel = new StatusModel
             {
                 IsSuccessed = true,
                 LastUpdatedUTCTime =
                 DateTimeOffset.Parse(doc.DocumentNode.SelectSingleNode("//*[@id='Content']/div[1]/h4/text()").InnerText.Split('：')[1]).AddHours(-8).ToUnixTimeSeconds(),
                 LastCheckedUTCTime = LastCheckedTime,
                 citiesStatuses = citiesStatuses
-            })
-            .ToArray(); ;
+            };
+            return statusModel;
             //return new string[] { "value1", "value2" };
         }
     }

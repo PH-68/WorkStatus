@@ -9,7 +9,7 @@ namespace WorkStatus.Core.API
     {
         public string CityNameEn { get; set; }
         public string CityNameCh { get; set; }
-        public int IsCanceled { get; set; }
-        public Dictionary<string, string> Notes { get; set; }
+        public bool IsCanceled { get; set; }
+        public List<string> Notes { get; set; }
     }
 }
