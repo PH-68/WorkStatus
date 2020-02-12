@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Timers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -19,6 +20,17 @@ namespace WorkStatus.Core.API
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
+            Timer t = new Timer(100000); //設計時間間隔，如果一個小時執行一次就改為3600000 
+            t.Elapsed += new ElapsedEventHandler(t_Elapsed);
+            t.AutoReset = true;
+            t.Enabled = true;
+        }
+
+        private async void t_Elapsed(object sender, ElapsedEventArgs e)
+        {
+            //排程內容
+            Controllers.StatusController statusController = new Controllers.StatusController();
+            await statusController.GetAsync();
         }
 
         public IConfiguration Configuration { get; }
