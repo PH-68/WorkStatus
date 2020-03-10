@@ -22,9 +22,18 @@ namespace WorkStatus.ResponseTimeTester
         public static string html = "";
         private void button1_Click(object sender, EventArgs e)
         {
-            _HttpServerDemo(textBox1.Text+"?anticache="+Guid.NewGuid(), Convert.ToInt32(textBox2.Text));
+            if (checkBox1.Checked)
+            {
+
+                _HttpServerDemo(textBox1.Text + "?anticache=" + Guid.NewGuid(), Convert.ToInt64(textBox2.Text));
+            }
+            else
+            {
+                _HttpServerDemo(textBox1.Text, Convert.ToInt64(textBox2.Text));
+                
+            }
         }
-        private async void _HttpServerDemo(string url, int t)
+        private async void _HttpServerDemo(string url, long t)
         {
             TimeSpan ts = new TimeSpan();
             for (int i = 0; i < t; i++)
@@ -39,7 +48,7 @@ namespace WorkStatus.ResponseTimeTester
             textBox3.Text = html;
         }
         static readonly HttpClient client = new HttpClient();
-        private async Task<Tuple<HttpResponseMessage, TimeSpan>> _GetHttpWithTimingInfo(string url, int t)
+        private async Task<Tuple<HttpResponseMessage, TimeSpan>> _GetHttpWithTimingInfo(string url, long t)
         {
             Stopwatch stopWatch = Stopwatch.StartNew();
             HttpResponseMessage result = await client.GetAsync(url);
