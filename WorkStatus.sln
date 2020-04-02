@@ -11,8 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkStatus.ResponseTimeTest
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkStatus.ASP.NET.MVC", "WorkStatus.ASP.NET.MVC\WorkStatus.ASP.NET.MVC.csproj", "{E6EE9017-EBD9-4C1C-8F45-6E26D589EBEE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WorkStatus.Core.APITests", "WorkStatus.Core.APITests\WorkStatus.Core.APITests.csproj", "{66884862-130D-41A9-900D-095730E60F5A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -35,17 +33,13 @@ Global
 		{E6EE9017-EBD9-4C1C-8F45-6E26D589EBEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E6EE9017-EBD9-4C1C-8F45-6E26D589EBEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E6EE9017-EBD9-4C1C-8F45-6E26D589EBEE}.Release|Any CPU.Build.0 = Release|Any CPU
-		{66884862-130D-41A9-900D-095730E60F5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{66884862-130D-41A9-900D-095730E60F5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{66884862-130D-41A9-900D-095730E60F5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{66884862-130D-41A9-900D-095730E60F5A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		RESX_ConfirmAddLanguageFile = True
-		RESX_AutoCreateNewLanguageFiles = True
 		SolutionGuid = {628A5BFF-200E-4745-A0F5-0EE68E04144B}
+		RESX_AutoCreateNewLanguageFiles = True
+		RESX_ConfirmAddLanguageFile = True
 	EndGlobalSection
 EndGlobal
