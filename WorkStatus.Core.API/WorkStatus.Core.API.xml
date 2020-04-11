@@ -1,0 +1,14 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>WorkStatus.Core.API</name>
+    </assembly>
+    <members>
+        <member name="M:WorkStatus.Core.API.Controllers.StatusController.GetAsync">
+            <summary>
+            Get status data
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

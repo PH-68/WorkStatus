@@ -1,0 +1,99 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+    WorkStatus.ASP.NET.MVC.Models.StatusModel statusModel = ViewBag.StatusModel;
+}
+<div class="form-group" id="top"></div>
+<div class="dropdown form-group">
+    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        快速選單 | Quick menu
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+        @for (int i = 0; i < WorkStatus.ASP.NET.MVC.Controllers.HomeController.CitiesEn.Length; i++)
+        {
+            <a class="dropdown-item" href="#@i">@WorkStatus.ASP.NET.MVC.Controllers.HomeController.CitiesCh[i] | @WorkStatus.ASP.NET.MVC.Controllers.HomeController.CitiesEn[i]</a>
+        }
+    </div>
+</div>
+@for (int i = 0; i < statusModel.citiesStatuses.Length; i++)
+{
+    if ((@statusModel.citiesStatuses[i].isCanceled == false) && (@statusModel.citiesStatuses[i].notes == null))
+    {
+        <div class="card border-success form-group" id="@i">
+            <div class="card-body">
+                <h5 class="card-title">@statusModel.citiesStatuses[i].cityNameCh </h5>
+                <h6 class="card-subtitle mb-2 text-muted">@statusModel.citiesStatuses[i].cityNameEn</h6>
+                <p class="card-text">目前無停班停課訊息<br />School and work are not suspended.</p>
+            </div>
+        </div>
+    }
+    else if (@statusModel.citiesStatuses[i].isCanceled == true)
+    {
+        <div class="card border-danger form-group" id="@i">
+            <div class="card-body">
+                <h5 class="card-title">@statusModel.citiesStatuses[i].cityNameCh </h5>
+                <h6 class="card-subtitle mb-2 text-muted">@statusModel.citiesStatuses[i].cityNameEn</h6>
+                <p class="card-text">目前已停班停課<br />School and work are suspended.</p>
+                <p class="card-text">
+                    @if (@statusModel.citiesStatuses[i].notes != null)
+                    {
+                        for (int v = 0; v < @statusModel.citiesStatuses[i].notes.Length; v++)
+                        {
+                            <span class="text-danger">*</span><span class="">@statusModel.citiesStatuses[i].notes[v]</span>
+                        }
+                    }
+                </p>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="card border-warning form-group" id="@i">
+            <div class="card-body">
+                <h5 class="card-title">@statusModel.citiesStatuses[i].cityNameCh </h5>
+                <h6 class="card-subtitle mb-2 text-muted">@statusModel.citiesStatuses[i].cityNameEn</h6>
+                <p class="card-text">目前無停班停課訊息<br />School and work are not suspended.</p>
+                <div class="border-danger h6 text-muted">
+                    <p class="card-text border-danger">
+                        @for (int v = 0; v < @statusModel.citiesStatuses[i].notes.Length; v++)
+                        {
+                            <span class="text-danger border-danger">*<span class="">@statusModel.citiesStatuses[i].notes[v]</span></span>
+                        }
+                    </p>
+                </div>
+
+            </div>
+        </div>
+    }
+
+}
+<button style="position:fixed;bottom:-9999999px;display:none" class="" id="topbtn" onclick="topFunction()">
+    <div style="width:50px;height:50px;position:fixed;right:20px;bottom:20px" class="btn btn-primary">
+        <svg style="width:50px;height:50px;right:20px;bottom:20px;position:fixed" class="d-flex" width="50px" height="50px" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" >
+            <path fill="currentColor" d="M35.5 248l148-148.5c4.7-4.7 12.3-4.7 17 0l148 148.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L209 156.1V468c0 6.6-5.4 12-12 12h-10c-6.6 0-12-5.4-12-12
+              V156.1L59.6 272c-4.7 4.7-12.3 4.7-17 0l-7.1-7.1c-4.7-4.6-4.7-12.2 0-16.9zM0 44v8c0 6.6 5.4 12 12 12h360c6.6 0 12-5.4 12-12v-8c0-6.6-5.4-12-12-12H12C5.4 32 0 37.4 0 44z" style="width:50px;height:50px">
+            </path>
+        </svg>
+    </div>
+<script>
+    //Get the button
+    var mybutton = document.getElementById("topbtn");
+
+    // When the user scrolls down 20px from the top of the document, show the button
+    window.onscroll = function () { scrollFunction() };
+
+    function scrollFunction() {
+        if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
+            mybutton.style.display = "block";
+        } else {
+            mybutton.style.display = "none";
+        }
+    }
+
+    // When the user clicks on the button, scroll to the top of the document
+    function topFunction() {
+        document.body.scrollTop = 0;
+        document.documentElement.scrollTop = 0;
+    }
+</script>
+</button>
+<small class="text-muted">@ViewBag.foo</small>
