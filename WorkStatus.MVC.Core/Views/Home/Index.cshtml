@@ -2,6 +2,50 @@
     ViewBag.Title = "Home Page";
     WorkStatus.MVC.Core.Models.StatusModel statusModel = ViewBag.StatusModel;
 }
+<style>
+    #topbutton {
+        display: inline-block;
+        background-color: #FF9800;
+        width: 50px;
+        height: 50px;
+        text-align: center;
+        border-radius: 4px;
+        position: fixed;
+        bottom: 30px;
+        right: 30px;
+        transition: background-color .3s, opacity .5s, visibility .5s;
+        opacity: 0;
+        visibility: hidden;
+        z-index: 1000;
+    }
+
+        #topbutton::after {
+            content: url("https://raw.githubusercontent.com/primer/octicons/master/icons/chevron-up.svg");
+            font-family: 'Microsoft JhengHei UI';
+            font-weight: normal;
+            font-style: normal;
+            font-size: 2em;
+            line-height: 50px;
+            color: #fff;
+        }
+
+        #topbutton:hover {
+            cursor: pointer;
+            background-color: #333;
+        }
+
+        #topbutton:active {
+            background-color: #555;
+        }
+
+        #topbutton.show {
+            opacity: 1;
+            visibility: visible;
+        }
+</style>
+<a id="topbutton">
+    <svg xmlns="http://www.w3.org/2000/svg" width="50" height="50" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-up"><polyline points="18 15 12 9 6 15"></polyline></svg>
+</a>
 <div class="form-group" id="top"></div>
 <div class="dropdown form-group">
     <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -60,40 +104,29 @@
                         }
                     </p>
                 </div>
-
             </div>
         </div>
     }
 
 }
-<button style="position:fixed;bottom:-9999999px;display:none" class="" id="topbtn" onclick="topFunction()">
-    <div style="width:50px;height:50px;position:fixed;right:20px;bottom:20px" class="btn btn-primary">
-        <svg style="width:50px;height:50px;right:20px;bottom:20px;position:fixed" class="d-flex" width="50px" height="50px" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" >
-            <path fill="currentColor" d="M35.5 248l148-148.5c4.7-4.7 12.3-4.7 17 0l148 148.5c4.7 4.7 4.7 12.3 0 17l-7.1 7.1c-4.7 4.7-12.3 4.7-17 0L209 156.1V468c0 6.6-5.4 12-12 12h-10c-6.6 0-12-5.4-12-12
-              V156.1L59.6 272c-4.7 4.7-12.3 4.7-17 0l-7.1-7.1c-4.7-4.6-4.7-12.2 0-16.9zM0 44v8c0 6.6 5.4 12 12 12h360c6.6 0 12-5.4 12-12v-8c0-6.6-5.4-12-12-12H12C5.4 32 0 37.4 0 44z" style="width:50px;height:50px">
-            </path>
-        </svg>
-    </div>
-<script>
-    //Get the button
-    var mybutton = document.getElementById("topbtn");
 
-    // When the user scrolls down 20px from the top of the document, show the button
-    window.onscroll = function () { scrollFunction() };
 
-    function scrollFunction() {
-        if (document.body.scrollTop > 40 || document.documentElement.scrollTop > 40) {
-            mybutton.style.display = "block";
-        } else {
-            mybutton.style.display = "none";
-        }
-    }
+@section Scripts{
+    <script>
+        var btn = $('#topbutton');
 
-    // When the user clicks on the button, scroll to the top of the document
-    function topFunction() {
-        document.body.scrollTop = 0;
-        document.documentElement.scrollTop = 0;
-    }
-</script>
-</button>
+        $(window).scroll(function () {
+            if ($(window).scrollTop() > 300) {
+                btn.addClass('show');
+            } else {
+                btn.removeClass('show');
+            }
+        });
+
+        btn.on('click', function (e) {
+            e.preventDefault();
+            $('html, body').animate({ scrollTop: 0 }, '300');
+        });
+    </script>
+}
 <small class="text-muted">@ViewBag.foo</small>

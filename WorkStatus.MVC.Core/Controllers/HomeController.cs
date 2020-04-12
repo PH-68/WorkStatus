@@ -82,6 +82,14 @@ namespace WorkStatus.MVC.Core.Controllers
             else
             {
                 UpdateData();
+                if (_cache.TryGetValue("Cache", out statusModel))
+                {
+                    ViewBag.StatusModel = statusModel;
+                }
+                else
+                {
+                    UpdateData();
+                }
             }
             timer.Stop();
             TimeSpan timeTaken = timer.Elapsed;
