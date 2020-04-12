@@ -98,7 +98,7 @@ namespace WorkStatus.Core.API.Controllers
                     //Dictionary<string, string> Notes = null;
                     List<string> Notes = new List<string>();
                     //20200202 special
-                    Notes.Add(CitiesCh[i] + "學生 - " + "寒假延長至2/25");
+                    //Notes.Add(CitiesCh[i] + "學生 - " + "寒假延長至2/25");
                     CityStatus cityStatus = new CityStatus
                     {
                         CityNameCh = CitiesCh[i],
