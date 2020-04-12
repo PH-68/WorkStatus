@@ -101,7 +101,7 @@ namespace WorkStatus.MVC.Core.Controllers
         {
             var timer = new Stopwatch();
             timer.Start();
-            var client = new RestClient("https://workstatus.poyi.tk/api/v1/data")
+            var client = new RestClient("https://workstatus.poyi.tk/api/v1/data?cache=bypass")
             {
                 Timeout = -1
             };
