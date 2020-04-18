@@ -70,7 +70,7 @@ namespace WorkStatus.MVC.Core.Controllers
             _cache = memoryCache;
         }
 
-        [ResponseCache(Duration = 1800, Location = ResponseCacheLocation.Any, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.Any, NoStore = true)]
         public IActionResult Index()
         {
             var timer = new Stopwatch();
@@ -118,7 +118,42 @@ namespace WorkStatus.MVC.Core.Controllers
         {
             return View();
         }
-
+        public IActionResult Detail(string id)
+        {
+            if (id != null)
+            {
+                RestClient client = new RestClient("http://api.openweathermap.org/data/2.5/weather?q=" + CitiesCh[Convert.ToInt16(id)] + "&appid=44d31a1e35fb9166af8c0af891f9cf10&lang=zh_tw")
+                {
+                    Timeout = -1
+                };
+                var request = new RestRequest(Method.GET);
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("User-Agent", "Mozilla/5.0 (compatible; PoyiCorporationBot/2.1; +http://www.poyi.tk/bot.html)");
+                request.AddHeader("Accept-Encoding", "gzip, deflate, br");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Cache-Control", "no-cache");
+                IRestResponse response = client.Execute(request);
+                OWMModel oWMModel = Newtonsoft.Json.JsonConvert.DeserializeObject<OWMModel>(response.Content);
+                ViewBag.OWM = oWMModel;
+                if (_cache.TryGetValue("Cache", out StatusModel statusModel))
+                {
+                    ViewBag.StatusModel = statusModel;
+                }
+                else
+                {
+                    UpdateData();
+                    if (_cache.TryGetValue("Cache", out statusModel))
+                    {
+                        ViewBag.StatusModel = statusModel;
+                    }
+                    else
+                    {
+                        UpdateData();
+                    }
+                }
+            }
+            return View();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -48,9 +48,9 @@
 </a>
 <div class="form-group" id="top"></div>
 <div class="dropdown form-group">
-    <button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    @*<button class="btn btn-info dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         快速選單 | Quick menu
-    </button>
+    </button>*@
     <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
         @for (int i = 0; i < WorkStatus.MVC.Core.Controllers.HomeController.CitiesEn.Length; i++)
         {
@@ -58,60 +58,67 @@
         }
     </div>
 </div>
-@for (int i = 0; i < statusModel.citiesStatuses.Length; i++)
-{
-    if ((@statusModel.citiesStatuses[i].isCanceled == false) && (@statusModel.citiesStatuses[i].notes.Length == 0))
+<input type="search" class="form-control form-group" data-table="order-table" placeholder="搜尋縣市 | Search city" id="search-tbx" autofocus="">
+<div id="a-group">
+    @for (int i = 0; i < statusModel.citiesStatuses.Length; i++)
     {
-        <div class="card border-success form-group" id="@i">
-            <div class="card-body">
-                <h5 class="card-title">@statusModel.citiesStatuses[i].cityNameCh </h5>
-                <h6 class="card-subtitle mb-2 text-muted">@statusModel.citiesStatuses[i].cityNameEn</h6>
-                <p class="card-text">目前無停班停課訊息<br />School and work are not suspended.</p>
-            </div>
-        </div>
-    }
-    else if (@statusModel.citiesStatuses[i].isCanceled == true)
-    {
-        <div class="card border-danger form-group" id="@i">
-            <div class="card-body">
-                <h5 class="card-title">@statusModel.citiesStatuses[i].cityNameCh </h5>
-                <h6 class="card-subtitle mb-2 text-muted">@statusModel.citiesStatuses[i].cityNameEn</h6>
-                <p class="card-text">目前已停班停課<br />School and work are suspended.</p>
-                <p class="card-text">
-                    @if (@statusModel.citiesStatuses[i].notes != null)
-                    {
-                        for (int v = 0; v < @statusModel.citiesStatuses[i].notes.Length; v++)
-                        {
-                            <span class="text-danger">*</span><span class="">@statusModel.citiesStatuses[i].notes[v]</span>
-                        }
-                    }
-                </p>
-            </div>
-        </div>
-    }
-    else
-    {
-        <div class="card border-warning form-group" id="@i">
-            <div class="card-body">
-                <h5 class="card-title">@statusModel.citiesStatuses[i].cityNameCh </h5>
-                <h6 class="card-subtitle mb-2 text-muted">@statusModel.citiesStatuses[i].cityNameEn</h6>
-                <p class="card-text">目前無停班停課訊息<br />School and work are not suspended.</p>
-                <div class="border-danger h6 text-muted">
-                    <p class="card-text border-danger">
-                        @for (int v = 0; v < @statusModel.citiesStatuses[i].notes.Length; v++)
-                        {
-                            <span class="text-danger border-danger">*<span class="">@statusModel.citiesStatuses[i].notes[v]</span></span>
-                        }
-                    </p>
+        <a href="/Home/Detail/@i" style="text-decoration:none;color:black" class="a-list">
+            @if ((@statusModel.citiesStatuses[i].isCanceled == false) && (@statusModel.citiesStatuses[i].notes.Length == 0))
+            {
+                <div class="card border-success form-group" id="@i">
+                    <div class="card-body">
+                        <h5 class="card-title">@statusModel.citiesStatuses[i].cityNameCh </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@statusModel.citiesStatuses[i].cityNameEn</h6>
+                        <p class="card-text">目前無停班停課訊息<br />School and work are not suspended.</p>
+                    </div>
                 </div>
-            </div>
-        </div>
-    }
+            }
+            else if (@statusModel.citiesStatuses[i].isCanceled == true)
+            {
+                <div class="card border-danger form-group" id="@i">
+                    <div class="card-body">
+                        <h5 class="card-title">@statusModel.citiesStatuses[i].cityNameCh </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@statusModel.citiesStatuses[i].cityNameEn</h6>
+                        <p class="card-text">目前已停班停課<br />School and work are suspended.</p>
+                        <p class="card-text">
+                            @if (@statusModel.citiesStatuses[i].notes != null)
+                            {
+                                for (int v = 0; v < @statusModel.citiesStatuses[i].notes.Length; v++)
+                                {
+                                    <span class="text-danger">*</span><span class="">@statusModel.citiesStatuses[i].notes[v]</span>
+                                }
+                            }
+                        </p>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="card border-warning form-group" id="@i">
+                    <div class="card-body">
+                        <h5 class="card-title">@statusModel.citiesStatuses[i].cityNameCh </h5>
+                        <h6 class="card-subtitle mb-2 text-muted">@statusModel.citiesStatuses[i].cityNameEn</h6>
+                        <p class="card-text">目前無停班停課訊息<br />School and work are not suspended.</p>
+                        <div class="border-danger h6 text-muted">
+                            <p class="card-text border-danger">
+                                @for (int v = 0; v < @statusModel.citiesStatuses[i].notes.Length; v++)
+                                {
+                                    <span class="text-danger border-danger">*<span class="">@statusModel.citiesStatuses[i].notes[v]</span></span>
+                                }
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            }
+        </a>
 
-}
+    }
+</div>
 
 
 @section Scripts{
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-searcher/0.3.0/jquery.searcher.min.js"
+        integrity="sha256-0gDDgmKv0Pz8Ra9kdI2kNXfnF3udmjcmUQmVIkp07/w=" crossorigin="anonymous"></script>
     <script>
         var btn = $('#topbutton');
 
@@ -126,6 +133,20 @@
         btn.on('click', function (e) {
             e.preventDefault();
             $('html, body').animate({ scrollTop: 0 }, '300');
+        });
+    </script>
+    <script>
+        $("#a-group").searcher({
+            itemSelector: ".a-list",
+            textSelector: "",
+            inputSelector: "#search-tbx",
+            toggle: function (item, containsText) {
+                // use a typically jQuery effect instead of simply showing/hiding the item element
+                if (containsText)
+                    $(item).fadeIn();
+                else
+                    $(item).fadeOut();
+            }
         });
     </script>
 }
