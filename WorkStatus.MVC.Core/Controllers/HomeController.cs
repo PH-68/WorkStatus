@@ -3,6 +3,7 @@ using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Logging;
 using RestSharp;
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using WorkStatus.MVC.Core.Models;
 
@@ -38,29 +39,30 @@ namespace WorkStatus.MVC.Core.Controllers
 
         public static readonly string[] CitiesEn = new[]
          {
-            "Keelung City",
-            "Taipei City",
-            "New Taipei City",
-            "Taoyuan City",
-            "Hsinchu City",
-            "Hsinchu County",
-            "Miaoli County",
-            "Taichung City",
-            "Changhua County",
-            "Nantou County",
-            "Yunli County",
-            "Chiayi City",
-            "Chiayi County",
-            "Tainan City",
-            "Kaohsiung City",
-            "Pingtung County",
-            "Yilan County",
-            "Hualien County",
-            "Taitung County",
-            "Penghu County",
-            "Lienchiang County",
-            "Kinmen County"
+            "Keelung",
+            "Taipei",
+            "New Taipei",
+            "Taoyuan",
+            "Hsinchu",
+            "Hsinchu",
+            "Miaoli",
+            "Taichung",
+            "Changhua",
+            "Nantou",
+            "Yunli",
+            "Chiayi",
+            "Chiayi",
+            "Tainan",
+            "Kaohsiung",
+            "Pingtung",
+            "Yilan",
+            "Hualien",
+            "Taitung",
+            "Penghu",
+            "Lienchiang",
+            "Kinmen"
         };
+
         private IMemoryCache _cache;
         private readonly ILogger<HomeController> _logger;
 
@@ -73,6 +75,22 @@ namespace WorkStatus.MVC.Core.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.Any, NoStore = true)]
         public IActionResult Index()
         {
+            if (_cache.TryGetValue("WeatherCache", out List<OWMModel> oWMModels))
+            {
+                ViewBag.OWMs = oWMModels;
+            }
+            else
+            {
+                UpdateData();
+                if (_cache.TryGetValue("WeatherCache", out oWMModels))
+                {
+                    ViewBag.OWMs = oWMModels;
+                }
+                else
+                {
+                    UpdateData();
+                }
+            }
             var timer = new Stopwatch();
             timer.Start();
             if (_cache.TryGetValue("Cache", out StatusModel statusModel))
@@ -109,6 +127,24 @@ namespace WorkStatus.MVC.Core.Controllers
             IRestResponse response = client.Execute(request);
             StatusModel statusModel = Newtonsoft.Json.JsonConvert.DeserializeObject<StatusModel>(response.Content);
             _cache.Set("Cache", statusModel);
+            List<OWMModel> oWMModels = new List<OWMModel>();
+            foreach (var item in CitiesEn)
+            {
+                client = new RestClient("https://api.openweathermap.org/data/2.5/weather?q=" + item + ",TW&units=metric&appid=44d31a1e35fb9166af8c0af891f9cf10&lang=zh_tw")
+                {
+                    Timeout = -1
+                };
+                request = new RestRequest(Method.GET);
+                request.AddHeader("Accept", "*/*");
+                request.AddHeader("User-Agent", "Mozilla/5.0 (compatible; PoyiCorporationBot/2.1; +http://www.poyi.tk/bot.html)");
+                request.AddHeader("Accept-Encoding", "gzip, deflate, br");
+                request.AddHeader("Connection", "keep-alive");
+                request.AddHeader("Cache-Control", "no-cache");
+                response = client.Execute(request);
+                OWMModel oWMModel = Newtonsoft.Json.JsonConvert.DeserializeObject<OWMModel>(response.Content);
+                oWMModels.Add(oWMModel);
+            }
+            _cache.Set("WeatherCache", oWMModels);
             timer.Stop();
             TimeSpan timeTaken = timer.Elapsed;
             return "Time taken: " + timeTaken.ToString(@"m\:ss\.fff");
@@ -118,6 +154,7 @@ namespace WorkStatus.MVC.Core.Controllers
         {
             return View();
         }
+
         public IActionResult Detail(string id)
         {
             if (id != null)
@@ -154,6 +191,7 @@ namespace WorkStatus.MVC.Core.Controllers
             }
             return View();
         }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
