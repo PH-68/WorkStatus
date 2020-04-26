@@ -63,7 +63,6 @@
     @for (int i = 0; i < statusModel.citiesStatuses.Length; i++)
     {
         @*<a href="/Home/Detail/@i" style="text-decoration:none;color:black" class="a-list">*@
-        <a href="#" style="text-decoration:none;color:black" class="a-list">
             @if ((@statusModel.citiesStatuses[i].isCanceled == false) && (@statusModel.citiesStatuses[i].notes.Length == 0))
             {
                 <div class="card border-success form-group" id="@i">
@@ -151,7 +150,6 @@
                     </div>
                 </div>
             }
-        </a>
 
     }
 </div>
