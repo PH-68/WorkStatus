@@ -15,5 +15,4 @@
         public bool isCanceled { get; set; }
         public string[] notes { get; set; }
     }
-
 }

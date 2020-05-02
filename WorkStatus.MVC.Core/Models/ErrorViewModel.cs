@@ -1,5 +1,3 @@
-using System;
-
 namespace WorkStatus.MVC.Core.Models
 {
     public class ErrorViewModel
