@@ -72,7 +72,7 @@ namespace WorkStatus.MVC.Core.Controllers
             _cache = memoryCache;
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.Any, NoStore = true)]
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Index()
         {
             if (_cache.TryGetValue("WeatherCache", out List<OWMModel> oWMModels))

@@ -65,7 +65,7 @@
         @*<a href="/Home/Detail/@i" style="text-decoration:none;color:black" class="a-list">*@
             @if ((@statusModel.citiesStatuses[i].isCanceled == false) && (@statusModel.citiesStatuses[i].notes.Length == 0))
             {
-                <div class="card border-success form-group" id="@i">
+                <div class="card border-success form-group a-list" id="@i">
                     <div class="card-body">
                         <h5 class="card-title w-100">
                             @statusModel.citiesStatuses[i].cityNameCh |
@@ -92,7 +92,7 @@
             }
             else if (@statusModel.citiesStatuses[i].isCanceled == true)
             {
-                <div class="card border-danger form-group" id="@i">
+                <div class="card border-danger form-group a-list" id="@i">
                     <div class="card-body">
                         <h5 class="card-title">
                             @statusModel.citiesStatuses[i].cityNameCh |
@@ -123,7 +123,7 @@
             }
             else
             {
-                <div class="card border-warning form-group" id="@i">
+                <div class="card border-warning form-group a-list" id="@i">
                     <div class="card-body">
                         <h5 class="card-title">
                             @statusModel.citiesStatuses[i].cityNameCh |
