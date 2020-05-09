@@ -43,8 +43,8 @@
             visibility: visible;
         }
 
-    ::-webkit-scrollbar{
-        display:none
+    ::-webkit-scrollbar {
+        display: none
     }
 </style>
 <a id="topbutton">
@@ -62,22 +62,22 @@
         }
     </div>
 </div>
-<input type="search" class="form-control form-group" data-table="order-table" placeholder="搜尋縣市 | Search city" id="search-tbx" autofocus="">
+<input type="search" class="form-control form-group" data-table="order-table" placeholder="搜尋縣市 | Search city" id="search-tbx" autofocus="autofocus">
 <div id="a-group">
     @for (int i = 0; i < statusModel.citiesStatuses.Length; i++)
     {
-        @*<a href="/Home/Detail/@i" style="text-decoration:none;color:black" class="a-list">*@
         @if ((@statusModel.citiesStatuses[i].isCanceled == false) && (@statusModel.citiesStatuses[i].notes.Length == 0))
         {
             <div class="card border-success form-group a-list" id="@i">
                 <div class="card-body">
                     <h5 class="card-title w-100">
-                        @statusModel.citiesStatuses[i].cityNameCh |
+                        @statusModel.citiesStatuses[i].cityNameCh
                         @if (oWMModels[i].cod == 200)
                         {
-                            @oWMModels[i].main.temp;
+                        <span> |</span>
+                            @Math.Round(oWMModels[i].main.temp);
+                            <span>℃</span>
                         }
-                        ℃
                         @if (@oWMModels[i].weather != null)
                         {
                             <img src=" https://openweathermap.org/img/wn/@oWMModels[i].weather[0].icon@@2x.png" alt=" @oWMModels[i].weather[0].description" width="35" height="35" />
