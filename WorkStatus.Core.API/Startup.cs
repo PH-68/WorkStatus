@@ -31,16 +31,11 @@ namespace WorkStatus.Core.API
             // Add OpenAPI v3 document
             services.AddOpenApiDocument(config =>
             {
-                // 設定文件名稱 (重要) (預設值: v1)
                 config.DocumentName = "v1";
 
-                // 設定文件或 API 版本資訊
                 config.Version = "1.0";
 
-                // 設定文件標題 (當顯示 Swagger/ReDoc UI 的時候會顯示在畫面上)
                 config.Title = "Work and school calceled data API";
-
-                // 設定文件簡要說明
                 config.Description = "I know I am not a good programmger so I created this API for everyone.<br />Contact me Poyi.Hong[@]outlook.com";
             });
 
@@ -71,7 +66,6 @@ namespace WorkStatus.Core.API
 
             app.UseReDoc(config =>  // serve ReDoc UI
             {
-                // 這裡的 Path 用來設定 ReDoc UI 的路由 (網址路徑) (一定要以 / 斜線開頭)
                 config.Path = "/redoc";
             });
         }
