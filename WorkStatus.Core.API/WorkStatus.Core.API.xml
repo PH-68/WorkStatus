@@ -4,7 +4,7 @@
         <name>WorkStatus.Core.API</name>
     </assembly>
     <members>
-        <member name="M:WorkStatus.Core.API.Controllers.StatusController.GetAsync">
+        <member name="M:WorkStatus.Core.API.Controllers.StatusController.GetAsync(System.String)">
             <summary>
             Get status data
             </summary>
