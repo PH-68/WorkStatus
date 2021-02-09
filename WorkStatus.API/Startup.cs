@@ -1,19 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Timers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
-namespace WorkStatus.Core.API
+namespace WorkStatus.API
 {
     public class Startup
     {
@@ -38,7 +29,6 @@ namespace WorkStatus.Core.API
                 config.Title = "Work and school calceled data API";
                 config.Description = "I know I am not a good programmger so I created this API for everyone.<br />Contact me Poyi.Hong[@]outlook.com";
             });
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <doc>
     <assembly>
-        <name>WorkStatus.Core.API</name>
+        <name>WorkStatus.API</name>
     </assembly>
     <members>
-        <member name="M:WorkStatus.Core.API.Controllers.StatusController.GetAsync(System.String)">
+        <member name="M:WorkStatus.API.Controllers.StatusController.GetAsync(System.String)">
             <summary>
             Get status data
             </summary>

@@ -6,7 +6,7 @@ using System.Net.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
-namespace WorkStatus.Core.API.Controllers
+namespace WorkStatus.API.Controllers
 {
     [Route("v1/data")]
     public class StatusController : Controller
@@ -90,7 +90,7 @@ namespace WorkStatus.Core.API.Controllers
         };
 
         private static readonly HttpClient client = new HttpClient();
-        public static string html = null;
+        private static string html = null;
         private static long LastCheckedTime = 0;
 
         // GET: api/<controller>
